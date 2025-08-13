@@ -1,11 +1,11 @@
 [package]
-name = "runeblood_ascension"
-version = "1.0.1"
+name = "tear-of-unyielding-breath"
+version = "1.0.0"
 edition = "2024"
-description = "Elden Ring mod that permanently enables Great Rune effect"
+description = "Infinite Stamina Mod for Elden Ring [Sekiro like stamina]"
 authors = ["Charlie's Boyfriend [ReinhardTristanHeydrich]"]
 #license =
-repository = "https://github.com/ReinhardTristanHeydrich/Runeblood-Ascension"
+repository = "https://github.com/ReinhardTristanHeydrich/Tear-of-Unyielding-Breath"
 
 [lib]
 crate-type = ["cdylib"]
