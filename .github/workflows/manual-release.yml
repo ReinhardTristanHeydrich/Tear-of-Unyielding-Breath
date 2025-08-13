@@ -17,14 +17,33 @@ jobs:
         with:
           targets: x86_64-pc-windows-msvc
 
+      - name: Get package name
+        id: package_name
+        uses: SebRollen/toml-action@v1.0.2
+        with:
+          file: 'Cargo.toml'
+          field: 'package.name'
+
+      - name: Get package version
+        id: package_version
+        uses: SebRollen/toml-action@v1.0.2
+        with:
+          file: 'Cargo.toml'
+          field: 'package.version'
+
+      - name: Display package info
+        run: |
+          echo "📦 Package: ${{ steps.package_name.outputs.value }}"
+          echo "🏷️ Version: ${{ steps.package_version.outputs.value }}"
+
       - name: Build DLL
         run: cargo build --release
 
       - name: Upload to GitHub Releases
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: "Stable-1.0.1"
-          name: "Stable 1.0.1"
-          files: target/release/runeblood_ascension.dll
+          tag_name: "v${{ steps.package_version.outputs.value }}"
+          name: "${{ steps.package_name.outputs.value }} v${{ steps.package_version.outputs.value }}"
+          files: target/release/${{ steps.package_name.outputs.value }}.dll
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
