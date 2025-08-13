@@ -40,7 +40,43 @@ pub unsafe extern "C" fn DllMain(hmodule: usize, reason: u32) -> bool {
 
                 main_player.player_game_data.current_stamina = main_player.player_game_data.current_max_stamina;
             },
+            CSTaskGroupIndex::FrameBegin,
+        );
+        //==============================================================
+                task_system.run_recurring(
+            |_task_data: &FD4TaskData| {
+                let Some(main_player) = get_instance::<WorldChrMan>()
+                    .expect("No reflection data for WorldChrMan")
+                    .and_then(|wcm| wcm.main_player.as_mut())
+                else {return;};
+
+                main_player.player_game_data.current_stamina = main_player.player_game_data.current_max_stamina;
+            },
+            CSTaskGroupIndex::HavokBehavior,
+        );
+        //==============================================================
+                task_system.run_recurring(
+            |_task_data: &FD4TaskData| {
+                let Some(main_player) = get_instance::<WorldChrMan>()
+                    .expect("No reflection data for WorldChrMan")
+                    .and_then(|wcm| wcm.main_player.as_mut())
+                else {return;};
+
+                main_player.player_game_data.current_stamina = main_player.player_game_data.current_max_stamina;
+            },
             CSTaskGroupIndex::ChrIns_PostPhysics,
+        );
+        //==============================================================
+                task_system.run_recurring(
+            |_task_data: &FD4TaskData| {
+                let Some(main_player) = get_instance::<WorldChrMan>()
+                    .expect("No reflection data for WorldChrMan")
+                    .and_then(|wcm| wcm.main_player.as_mut())
+                else {return;};
+
+                main_player.player_game_data.current_stamina = main_player.player_game_data.current_max_stamina;
+            },
+            CSTaskGroupIndex::FrameEnd,
         );
         //==============================================================
     });
