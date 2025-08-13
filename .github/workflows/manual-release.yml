@@ -33,6 +33,7 @@ jobs:
 
       - name: Process package info
         id: processed_info
+        shell: bash
         run: |
           PACKAGE_NAME="${{ steps.package_name.outputs.value }}"
           FILE_NAME=$(echo "$PACKAGE_NAME" | sed 's/-/_/g')
