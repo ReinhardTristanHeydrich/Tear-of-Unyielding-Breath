@@ -1,0 +1,1 @@
+Infinite Stamina mod for Elden Ring.
