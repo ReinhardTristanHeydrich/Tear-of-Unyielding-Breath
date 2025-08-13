@@ -31,10 +31,18 @@ jobs:
           file: 'Cargo.toml'
           field: 'package.version'
 
-      - name: Display package info
+      - name: Process package info
+        id: processed_info
         run: |
-          echo "📦 Package: ${{ steps.package_name.outputs.value }}"
+          PACKAGE_NAME="${{ steps.package_name.outputs.value }}"
+          FILE_NAME=$(echo "$PACKAGE_NAME" | sed 's/-/_/g')
+          
+          echo "package_name=$PACKAGE_NAME" >> $GITHUB_OUTPUT
+          echo "file_name=$FILE_NAME" >> $GITHUB_OUTPUT
+          
+          echo "📦 Package: $PACKAGE_NAME"
           echo "🏷️ Version: ${{ steps.package_version.outputs.value }}"
+          echo "📁 File name: $FILE_NAME.dll"
 
       - name: Build DLL
         run: cargo build --release
@@ -43,7 +51,7 @@ jobs:
         uses: softprops/action-gh-release@v2
         with:
           tag_name: "v${{ steps.package_version.outputs.value }}"
-          name: "${{ steps.package_name.outputs.value }} v${{ steps.package_version.outputs.value }}"
-          files: target/release/${{ steps.package_name.outputs.value }}.dll
+          name: "${{ steps.processed_info.outputs.package_name }} v${{ steps.package_version.outputs.value }}"
+          files: target/release/${{ steps.processed_info.outputs.file_name }}.dll
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
