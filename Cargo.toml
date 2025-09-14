@@ -11,5 +11,6 @@ repository = "https://github.com/ReinhardTristanHeydrich/Tear-of-Unyielding-Brea
 crate-type = ["cdylib"]
 
 [dependencies]
-eldenring = "0.10.0"
-eldenring-util = "0.10.0"
+eldenring = "0.11.0"
+eldenring-util = "0.11.0"
+winapi = {version = "0.3.9", features = ["libloaderapi"]}
